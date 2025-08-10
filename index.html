@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tempo di Ristrutturare | Ristrutturazioni Chiavi in Mano</title>
+    <meta name="description" content="La tua ristrutturazione, senza pensieri. Dall'idea alla consegna, pensiamo a tutto noi. Specialisti in ristrutturazioni chiavi in mano a Milano e dintorni.">
+    <meta name="keywords" content="ristrutturazioni, chiavi in mano, ristrutturazione bagno, ristrutturazione cucina, edilizia, architettura, design interni, italia">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --terracotta: #C86A43;
+            --charcoal: #212529; /* Darker than plan for more contrast */
+            --off-white: #F9F7F5;
+            --slate-blue: #778A9B;
+            --dark-bg: #1a1a1a;
+            --header-height: 80px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--off-white);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot, .cursor-dot-outline {
+            z-index: 9999;
+            pointer-events: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--terracotta);
+        }
+        .cursor-dot-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(200, 106, 67, 0.2);
+            transition: all 0.08s ease-out;
+        }
+        body:hover .cursor-dot, body:hover .cursor-dot-outline {
+            opacity: 1;
+        }
+        a:hover, button:hover, .swiper-button-next:hover, .swiper-button-prev:hover, input[type=range]:hover {
+            cursor: none;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--off-white);
+        }
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+        h3 { font-size: 1.75rem; }
+        p { margin-bottom: 1rem; color: rgba(249, 247, 245, 0.8);}
+        a { color: var(--terracotta); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: var(--off-white); }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-primary {
+            background-color: var(--terracotta);
+            color: var(--dark-bg);
+            border: 2px solid var(--terracotta);
+            box-shadow: 0 0 15px rgba(200, 106, 67, 0.5);
+        }
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--terracotta);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(200, 106, 67, 0.3);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--slate-blue);
+            border: 2px solid var(--slate-blue);
+        }
+        .btn-secondary:hover {
+            background-color: var(--slate-blue);
+            color: var(--dark-bg);
+        }
+
+        /* Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        .main-header.scrolled {
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--off-white);
+        }
+        .logo span { color: var(--terracotta); }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        .main-nav a {
+            padding: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            color: var(--off-white);
+            position: relative;
+        }
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--terracotta);
+            transition: width 0.3s ease;
+        }
+        .main-nav a:hover::after, .main-nav a.active::after {
+            width: 60%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: var(--off-white);
+            border-radius: 5px;
+            transition: all 0.3s linear;
+            transform-origin: 1px;
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
+
+        /* Hero Section */
+        #home {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 2rem;
+            background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') no-repeat center center/cover;
+        }
+        #home::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.9) 0%, rgba(26, 26, 26, 0.4) 60%, rgba(26, 26, 26, 0.2) 100%);
+        }
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+        }
+        .hero-content h1 {
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--off-white);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: var(--off-white);
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+        .scroll-down::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--terracotta);
+            margin: 10px auto 0;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        /* Value Prop Bar */
+        .value-prop-bar {
+            background-color: var(--charcoal);
+            padding: 3rem 0;
+        }
+        .value-prop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        .prop-item .icon {
+            font-size: 3rem;
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+            display: block;
+            text-shadow: 0 0 10px rgba(200, 106, 67, 0.5);
+        }
+        .prop-item h4 {
+            font-size: 1.2rem;
+            color: var(--off-white);
+            margin-bottom: 0.5rem;
+        }
+        .prop-item p {
+            font-size: 0.9rem;
+            color: rgba(249, 247, 245, 0.7);
+        }
+
+        /* Generic Section Styling */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--terracotta);
+            border-radius: 2px;
+        }
+        .section-title .subtitle {
+            font-size: 1.1rem;
+            color: var(--slate-blue);
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+        
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background-color: var(--charcoal);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Placeholder for arch */
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .project-card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        .project-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.95), transparent);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-card-content {
+            transform: translateY(0);
+        }
+        .project-card-content h3 {
+            color: var(--off-white);
+            margin-bottom: 0.5rem;
+        }
+        .project-card-content p {
+            color: var(--slate-blue);
+            margin-bottom: 0;
+        }
+        /* Arch effect */
+        .project-card.arch-frame {
+            border-radius: 15px 15px 0 0;
+            clip-path: path('M0,450 C0,450 0,150 0,150 C0,67.15 67.15,0 150,0 L230,0 C312.85,0 380,67.15 380,150 L380,450 Z'); /* This path is tricky, simpler might be better */
+            clip-path: inset(0 0 0 0 round 150px 150px 0 0); /* Simpler arch approximation */
+        }
+        
+        /* Method Section */
+        #metodo { background-color: var(--charcoal); }
+        .method-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .method-timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--slate-blue);
+            opacity: 0.2;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -14px;
+            background-color: var(--dark-bg);
+            border: 4px solid var(--terracotta);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .timeline-item.left {
+            left: 0;
+            text-align: right;
+        }
+        .timeline-item.right {
+            left: 50%;
+        }
+        .timeline-item.right::after {
+            left: -12px;
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--dark-bg);
+            position: relative;
+            border-radius: 8px;
+            border-left: 5px solid var(--terracotta);
+        }
+        .timeline-item.left .timeline-content {
+            border-left: none;
+            border-right: 5px solid var(--terracotta);
+        }
+        .timeline-item.visible .timeline-content {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        .timeline-item.visible::after {
+            transform: scale(1.2);
+            background-color: var(--terracotta);
+        }
+        .timeline-content .step {
+            font-size: 1rem;
+            color: var(--slate-blue);
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .service-card {
+            background-color: var(--charcoal);
+            padding: 2.5rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--terracotta);
+        }
+        .service-card .icon {
+            font-size: 3.5rem;
+            color: var(--terracotta);
+            margin-bottom: 1.5rem;
+        }
+        .service-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        /* Testimonials Section */
+        #dicono-di-noi { background-color: var(--charcoal); }
+        .testimonial-slider {
+            position: relative;
+            padding: 0 50px;
+        }
+        .swiper-slide {
+            padding: 2rem;
+            background-color: var(--dark-bg);
+            border-radius: 200px 200px 10px 10px; /* Arch style */
+            text-align: center;
+        }
+        .testimonial-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+        .testimonial-quote::before {
+            content: '“';
+            font-size: 4rem;
+            color: var(--terracotta);
+            opacity: 0.5;
+            position: relative;
+            top: 20px;
+            left: -10px;
+        }
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .client-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 2px solid var(--terracotta);
+        }
+        .client-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        .client-project {
+            color: var(--slate-blue);
+            font-size: 0.9rem;
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--terracotta);
+            transition: transform 0.3s ease;
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            transform: scale(1.2);
+        }
+        
+        /* Before/After Section */
+        .before-after-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .before-after-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: cover;
+        }
+        .before-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+            border-right: 3px solid var(--terracotta);
+        }
+        .before-image img {
+            width: 200%; /* Image inside is double width */
+            max-width: none;
+        }
+        .slider-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-bg);
+            font-size: 1.5rem;
+            font-weight: 900;
+            pointer-events: none;
+        }
+        .slider-handle::before { content: '◀'; }
+        .slider-handle::after { content: '▶'; }
+        .before-after-slider {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255,255,255,0.2);
+            height: 5px;
+            border-radius: 5px;
+            outline: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .before-after-container:hover .before-after-slider {
+            opacity: 1;
+        }
+        .before-after-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            cursor: ew-resize;
+        }
+        .before-after-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            cursor: ew-resize;
+        }
+
+
+        /* Contact Section */
+        #contatti { background-color: var(--charcoal); }
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .contact-info h3 {
+            color: var(--terracotta);
+            margin-bottom: 1.5rem;
+        }
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        .contact-details li {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .contact-details .icon {
+            font-size: 1.5rem;
+            color: var(--terracotta);
+            margin-right: 1rem;
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--slate-blue);
+        }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: var(--dark-bg);
+            border: 1px solid var(--slate-blue);
+            border-radius: 5px;
+            color: var(--off-white);
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            box-shadow: 0 0 10px rgba(200, 106, 67, 0.4);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form .btn {
+            width: 100%;
+            font-size: 1.1rem;
+            padding: 1rem;
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: #111;
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--off-white);
+        }
+        .footer-logo span { color: var(--terracotta); }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .footer-links a { color: var(--slate-blue); }
+        .footer-links a:hover { color: var(--terracotta); }
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        .social-links a {
+            color: var(--slate-blue);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--terracotta);
+            transform: translateY(-3px);
+        }
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(249, 247, 245, 0.5);
+        }
+
+        /* Animation on Scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-on-scroll.delay-1 { transition-delay: 0.1s; }
+        .animate-on-scroll.delay-2 { transition-delay: 0.2s; }
+        .animate-on-scroll.delay-3 { transition-delay: 0.3s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .contact-info { text-align: center; margin-bottom: 3rem; }
+            .contact-details { justify-content: center; }
+        }
+
+        @media (max-width: 768px) {
+            :root { --header-height: 70px; }
+            h1 { font-size: 2.2rem; }
+            section { padding: 4rem 0; }
+            .container { padding: 0 1.5rem; }
+
+            .main-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--charcoal);
+                transition: right 0.4s ease-in-out;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .main-nav.open { right: 0; }
+            .main-nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            .main-nav a {
+                font-size: 1.5rem;
+                padding: 1.5rem 0;
+            }
+            .hamburger { display: flex; }
+
+            .method-timeline::after { left: 30px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 15px; }
+            .timeline-item.left, .timeline-item.right { left: 0; text-align: left; }
+            .timeline-item::after { left: 18px; }
+            .timeline-item.left .timeline-content, .timeline-item.right .timeline-content {
+                border-left: 5px solid var(--terracotta);
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <header class="main-header" id="main-header">
+        <div class="header-container">
+            <a href="#home" class="logo">TR<span>.</span></a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#servizi" class="nav-link">Servizi</a></li>
+                    <li><a href="#realizzazioni" class="nav-link">Realizzazioni</a></li>
+                    <li><a href="#metodo" class="nav-link">Metodo</a></li>
+                    <li><a href="#dicono-di-noi" class="nav-link">Dicono di Noi</a></li>
+                    <li><a href="#contatti" class="nav-link">Contatti</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home">
+            <div class="hero-content animate-on-scroll">
+                <h1>La tua ristrutturazione, <span>senza pensieri.</span></h1>
+                <p>Dall'idea alla consegna, pensiamo a tutto noi. Un unico referente per un risultato impeccabile.</p>
+                <a href="#realizzazioni" class="btn btn-primary">Scopri i nostri lavori</a>
+            </div>
+            <a href="#servizi" class="scroll-down">Scorri</a>
+        </section>
+
+        <section class="value-prop-bar">
+            <div class="container">
+                <div class="value-prop-grid">
+                    <div class="prop-item animate-on-scroll">
+                        <span class="icon">🔑</span>
+                        <h4>Progetti Chiavi in Mano</h4>
+                        <p>Dalla progettazione alla consegna finale, un unico interlocutore per la massima serenità.</p>
+                    </div>
+                    <div class="prop-item animate-on-scroll delay-1">
+                        <span class="icon">📋</span>
+                        <h4>Preventivo Chiaro</h4>
+                        <p>Offriamo preventivi dettagliati e trasparenti, senza sorprese e con costi certi.</p>
+                    </div>
+                    <div class="prop-item animate-on-scroll delay-2">
+                        <span class="icon">✨</span>
+                        <h4>Garanzia di Qualità</h4>
+                        <p>Utilizziamo solo materiali di pregio e maestranze qualificate per un risultato che dura nel tempo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servizi">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <p class="subtitle">Cosa Facciamo</p>
+                    <h2>I Nostri Servizi</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card animate-on-scroll">
+                        <span class="icon">🏠</span>
+                        <h3>Ristrutturazione Completa</h3>
+                        <p>Trasformiamo completamente il tuo appartamento, ottimizzando spazi, luce e funzionalità secondo i tuoi desideri.</p>
+                    </div>
+                    <div class="service-card animate-on-scroll delay-1">
+                        <span class="icon">🛁</span>
+                        <h3>Ristrutturazione Bagno</h3>
+                        <p>Creiamo oasi di benessere su misura, combinando design moderno, materiali innovativi e massima praticità.</p>
+                    </div>
+                    <div class="service-card animate-on-scroll delay-2">
+                        <span class="icon">🍳</span>
+                        <h3>Ristrutturazione Cucina</h3>
+                        <p>Progettiamo il cuore della tua casa: cucine funzionali, ergonomiche e di grande impatto estetico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="realizzazioni">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <p class="subtitle">Il nostro portfolio</p>
+                    <h2>Realizzazioni in Evidenza</h2>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="project-card animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1585584137233-c35c49141490?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Appartamento stile industriale">
+                        <div class="project-card-content">
+                            <h3>Appartamento Industriale</h3>
+                            <p>Milano - Zona Isola</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll delay-1">
+                        <img src="https://images.unsplash.com/photo-1600607687833-22de6a0d5c19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Attico luminoso">
+                        <div class="project-card-content">
+                            <h3>Attico Luminoso</h3>
+                            <p>Roma - Quartiere Prati</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll delay-2">
+                        <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Bagno di design minimal">
+                        <div class="project-card-content">
+                            <h3>Bagno Minimal</h3>
+                            <p>Monza - Centro Storico</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title animate-on-scroll" style="margin-top: 6rem;">
+                     <h2>Prima e Dopo</h2>
+                     <p class="subtitle">Guarda la magia della trasformazione.</p>
+                </div>
+
+                <div class="before-after-container animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Stanza dopo la ristrutturazione" class="after-image">
+                    <div class="before-image">
+                        <img src="https://images.unsplash.com/photo-1574874416129-5141103f5043?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Stanza prima della ristrutturazione">
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="before-after-slider" aria-label="Confronta prima e dopo">
+                </div>
+            </div>
+        </section>
+
+        <section id="metodo">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <p class="subtitle">Il nostro processo</p>
+                    <h2>Il Nostro Metodo</h2>
+                    <p class="subtitle">Un percorso chiaro e strutturato in 5 fasi per garantirti tranquillità e un risultato perfetto.</p>
+                </div>
+                <div class="method-timeline">
+                    <div class="timeline-item left animate-on-scroll">
+                        <div class="timeline-content">
+                            <p class="step">Fase 1</p>
+                            <h3>Sopralluogo e Analisi</h3>
+                            <p>Ascoltiamo le tue esigenze e analizziamo lo stato di fatto per definire gli obiettivi del progetto.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right animate-on-scroll">
+                        <div class="timeline-content">
+                            <p class="step">Fase 2</p>
+                            <h3>Progettazione e Preventivo</h3>
+                            <p>Sviluppiamo il progetto con rendering 3D e prepariamo un preventivo dettagliato e trasparente.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left animate-on-scroll">
+                        <div class="timeline-content">
+                            <p class="step">Fase 3</p>
+                            <h3>Gestione Burocratica</h3>
+                            <p>Ci occupiamo di tutte le pratiche edilizie e i permessi necessari per iniziare i lavori senza pensieri.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right animate-on-scroll">
+                        <div class="timeline-content">
+                            <p class="step">Fase 4</p>
+                            <h3>Esecuzione Lavori</h3>
+                            <p>Coordiniamo artigiani e fornitori con un project manager dedicato, garantendo qualità e rispetto dei tempi.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left animate-on-scroll">
+                        <div class="timeline-content">
+                            <p class="step">Fase 5</p>
+                            <h3>Consegna e Garanzia</h3>
+                            <p>Consegniamo l'immobile pulito e pronto da vivere, offrendo una garanzia completa su tutti i lavori eseguiti.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dicono-di-noi">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <p class="subtitle">Le loro parole</p>
+                    <h2>Dicono di Noi</h2>
+                </div>
+                <div class="testimonial-slider swiper animate-on-scroll">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <p class="testimonial-quote">Un team incredibilmente professionale. Hanno trasformato il nostro vecchio appartamento in un gioiello, rispettando budget e tempi. Il metodo 'chiavi in mano' è davvero senza pensieri!</p>
+                            <div class="client-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente Marco Rossi">
+                                <div>
+                                    <p class="client-name">Marco & Giulia</p>
+                                    <p class="client-project">Ristrutturazione Completa, Milano</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <p class="testimonial-quote">Finalmente il bagno dei miei sogni! Tempo di Ristrutturare ha capito subito le mie esigenze, proponendo soluzioni di design innovative e funzionali. Super consigliati!</p>
+                            <div class="client-info">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente Elena Bianchi">
+                                <div>
+                                    <p class="client-name">Elena Bianchi</p>
+                                    <p class="client-project">Ristrutturazione Bagno, Monza</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <p class="testimonial-quote">La nostra nuova cucina è il cuore della casa. Grazie alla loro attenta progettazione, ora abbiamo uno spazio bellissimo e super funzionale. Lavoro impeccabile.</p>
+                            <div class="client-info">
+                                <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Cliente Paolo Verdi">
+                                <div>
+                                    <p class="client-name">Famiglia Verdi</p>
+                                    <p class="client-project">Ristrutturazione Cucina</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contatti">
+            <div class="container">
+                <div class="section-title animate-on-scroll">
+                    <p class="subtitle">Inizia a sognare</p>
+                    <h2>Raccontaci il tuo progetto</h2>
+                </div>
+                <div class="contact-wrapper">
+                    <div class="contact-info animate-on-scroll">
+                        <h3>Pronto a trasformare la tua casa?</h3>
+                        <p>Contattaci per un sopralluogo e un preventivo gratuito. Siamo qui per ascoltare le tue idee e trasformarle in realtà. Il primo passo verso la casa dei tuoi sogni inizia con una semplice conversazione.</p>
+                        <ul class="contact-details">
+                            <li><span class="icon">📍</span> Via dell'Architettura 12, Milano</li>
+                            <li><span class="icon">📧</span> info@tempodiristrutturare.it</li>
+                            <li><span class="icon">📞</span> +39 02 123 4567</li>
+                        </ul>
+                    </div>
+                    <form class="contact-form animate-on-scroll delay-1">
+                        <div class="form-group">
+                            <label for="name">Nome e Cognome</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Servizio di interesse</label>
+                            <select id="service" name="service">
+                                <option>Ristrutturazione Completa</option>
+                                <option>Ristrutturazione Bagno</option>
+                                <option>Ristrutturazione Cucina</option>
+                                <option>Altro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Descrivi il tuo progetto</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Invia Richiesta</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-logo animate-on-scroll">TR<span>.</span></div>
+            <ul class="footer-links animate-on-scroll delay-1">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#servizi">Servizi</a></li>
+                <li><a href="#realizzazioni">Realizzazioni</a></li>
+                <li><a href="#metodo">Metodo</a></li>
+                <li><a href="#contatti">Contatti</a></li>
+            </ul>
+            <div class="social-links animate-on-scroll delay-2">
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Houzz">HZ</a>
+            </div>
+            <p class="copyright animate-on-scroll delay-3">&copy; 2024 Tempo di Ristrutturare. Tutti i diritti riservati. P.IVA 12345678901</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cursor Trail Effect
+            const cursorDot = document.querySelector(".cursor-dot");
+            const cursorDotOutline = document.querySelector(".cursor-dot-outline");
+            let cursorTimeout;
+            
+            window.addEventListener("mousemove", function (e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                cursorDotOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards"});
+
+                // Hover effect
+                const target = e.target;
+                if (target.matches('a, button, .swiper-button-next, .swiper-button-prev, input[type=range]')) {
+                    cursorDotOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorDotOutline.style.backgroundColor = 'rgba(200, 106, 67, 0.4)';
+                } else {
+                    cursorDotOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorDotOutline.style.backgroundColor = 'rgba(200, 106, 67, 0.2)';
+                }
+            });
+            
+            // Header Scroll
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile Menu
+            const hamburger = document.getElementById('hamburger-menu');
+            const nav = document.getElementById('main-nav');
+            const navLinks = document.querySelectorAll('.main-nav a');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                nav.classList.toggle('open');
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                     if(nav.classList.contains('open')) {
+                        hamburger.classList.remove('open');
+                        nav.classList.remove('open');
+                     }
+                });
+            });
+
+            // Smooth Scroll & Active Link
+            const sections = document.querySelectorAll('section[id]');
+            const navLinkEls = document.querySelectorAll('.main-nav a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - var(--header-height)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinkEls.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Swiper Testimonial Slider
+            new Swiper('.testimonial-slider', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                slidesPerView: 1,
+                spaceBetween: 30,
+            });
+
+            // Before & After Slider
+            const slider = document.querySelector('.before-after-slider');
+            const beforeImage = document.querySelector('.before-image');
+            if (slider && beforeImage) {
+                slider.addEventListener('input', (e) => {
+                    beforeImage.style.width = e.target.value + '%';
+                });
+            }
+
+            // Animate on Scroll
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
